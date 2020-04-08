@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using CookBeyondLimits.Common;
     using CookBeyondLimits.Data.Models;
@@ -64,14 +65,32 @@
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? this.Url.Content("~/");
-
             if (this.ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await this.signInManager.PasswordSignInAsync(this.Input.Username, this.Input.Password, this.Input.RememberMe, lockoutOnFailure: true);
+                var user = await this.userManager.FindByNameAsync(this.Input.Username);
+
+                if (user == null)
+                {
+                    this.ModelState.AddModelError(string.Empty, "The user name or password is incorrect.");
+                    return this.Page();
+                }
+
+                if (result.IsLockedOut)
+                {
+                    this.logger.LogWarning("This account has been locked out, please try again later.");
+                    return this.RedirectToPage("./Lockout");
+                }
+
                 if (result.Succeeded)
                 {
+                    if (this.userManager.SupportsUserLockout && await this.userManager.GetLockoutEnabledAsync(user) && await this.userManager.GetAccessFailedCountAsync(user) > 0)
+                    {
+                        await this.userManager.ResetAccessFailedCountAsync(user);
+                    }
+
                     this.logger.LogInformation("User logged in.");
                     return this.LocalRedirect(returnUrl);
                 }
@@ -79,13 +98,13 @@
                 //{
                 //    return this.RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
                 //}
-                //if (result.IsLockedOut)
-                //{
-                //    this.logger.LogWarning("User account locked out.");
-                //    return this.RedirectToPage("./Lockout");
-                //}
                 else
                 {
+                    if (this.userManager.SupportsUserLockout && await this.userManager.GetLockoutEnabledAsync(user))
+                    {
+                        await this.userManager.AccessFailedAsync(user);
+                    }
+
                     this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return this.Page();
                 }
