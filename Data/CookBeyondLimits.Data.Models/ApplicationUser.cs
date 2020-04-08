@@ -51,11 +51,6 @@ namespace CookBeyondLimits.Data.Models
         [MaxLength(30)]
         public string LastName { get; set; }
 
-        public Gender Gender { get; set; }
-
-        //[DataType(DataType.Date)]
-        public DateTime Birthdate { get; set; }
-
         public string ProfilePhoto { get; set; }
 
         public virtual ICollection<Recipe> Recipes { get; set; }
