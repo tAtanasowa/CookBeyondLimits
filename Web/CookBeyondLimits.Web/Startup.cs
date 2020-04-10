@@ -57,6 +57,14 @@
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(
+                options =>
+                {
+                    options.LoginPath = "/Identity/Account/Login";
+                    options.LogoutPath = "/Identity/Account/Logout";
+                    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                });
+
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {
@@ -75,7 +83,7 @@
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-            services.AddTransient<IEmailSender, NullMessageSender>();
+            services.AddTransient<IEmailSender>(x => new SendGridEmailSender("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"));
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IAllergenService, AllergenService>();
             services.AddTransient<ICategoryService, CategoryService>();

@@ -18,8 +18,8 @@
         public const int PasswordMaxLength = 100;
 
         //// Recipe
-        //public const int RecipeTitleMinLength = 3;
-        //public const int RecipeTitleMaxLength = 50;
+        public const int RecipeTitleMinLength = 2;
+        public const int RecipeTitleMaxLength = 100;
 
         //public const int RecipeSummaryMinLength = 10;
         //public const int RecipeSummaryMaxLength = 1000;
