@@ -17,6 +17,16 @@
         public const int PasswordMinLength = 5;
         public const int PasswordMaxLength = 100;
 
+        //// ContactForm
+        public const int NameMinLength = 2;
+        public const int NameMaxLength = 50;
+
+        public const int ContactFormTitleMinLength = 2;
+        public const int ContactFormTitleMaxLength = 100;
+
+        public const int ContactFormContentMinLength = 20;
+        public const int ContactFormContentMaxLength = 10000;
+
         //// Recipe
         public const int RecipeTitleMinLength = 2;
         public const int RecipeTitleMaxLength = 100;

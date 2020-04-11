@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\CookBeyondLimits.Common\CookBeyondLimits.Common.csproj" />
     <ProjectReference Include="..\..\Data\CookBeyondLimits.Data.Models\CookBeyondLimits.Data.Models.csproj" />
     <ProjectReference Include="..\..\Services\CookBeyondLimits.Services.Mapping\CookBeyondLimits.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CookBeyondLimits.Web.Infrastructure\CookBeyondLimits.Web.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

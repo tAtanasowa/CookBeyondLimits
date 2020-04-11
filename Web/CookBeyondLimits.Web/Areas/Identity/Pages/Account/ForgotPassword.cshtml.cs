@@ -5,7 +5,7 @@ namespace CookBeyondLimits.Web.Areas.Identity.Pages.Account
     using System.Text;
     using System.Text.Encodings.Web;
     using System.Threading.Tasks;
-
+    using CookBeyondLimits.Common;
     using CookBeyondLimits.Data.Models;
     using CookBeyondLimits.Services.Messaging;
     using Microsoft.AspNetCore.Authorization;
@@ -52,8 +52,8 @@ namespace CookBeyondLimits.Web.Areas.Identity.Pages.Account
                     protocol: this.Request.Scheme);
 
                 await this.emailSender.SendEmailAsync(
-                    "cookbeyondlimits@gmail.com",
-                    "Cook Beyond Limits",
+                    GlobalConstants.SystemEmail,
+                    GlobalConstants.SystemName,
                     this.Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
