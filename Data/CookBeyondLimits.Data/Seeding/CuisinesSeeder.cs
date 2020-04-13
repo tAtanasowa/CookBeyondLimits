@@ -17,7 +17,7 @@
                 return;
             }
 
-            var cuisineService = serviceProvider.GetRequiredService<ICuisineService>();
+            var cuisineService = serviceProvider.GetRequiredService<ICuisinesService>();
 
             var cuisineTypes = new string[]
             {

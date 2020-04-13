@@ -19,6 +19,9 @@
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
+        public string ImageUrl { get; set; }
+
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

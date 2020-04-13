@@ -1,9 +1,32 @@
 ﻿@using CookBeyondLimits.Common
+@using CookBeyondLimits.Web.ViewModels.Home
+@model IndexViewModel
 @{
-    this.ViewData["Title"] = "Home Page";
+    this.ViewData["Title"] = $"Welcome to {GlobalConstants.SystemName}!";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">@this.ViewData["Title"]</h1>
+</div>
+
+<div class="post-catagory section-padding-100">
+    <div class="container">
+        <div class="row">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-post-catagory mb-30">
+                        <img src="@category.ImageUrl" width="800" height="723" alt="@category.Name">
+                        <!-- Content -->
+                        <div class="catagory-content-bg">
+                            <div class="catagory-content">
+                                <a href="#" class="post-tag">The Best</a>
+                                <a href="@category.Url" class="post-title">@category.Name</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 </div>

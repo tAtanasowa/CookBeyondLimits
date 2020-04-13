@@ -17,7 +17,7 @@
                 return;
             }
 
-            var allergenService = serviceProvider.GetRequiredService<IAllergenService>();
+            var allergenService = serviceProvider.GetRequiredService<IAllergensService>();
 
             var allergenNames = new string[]
             {

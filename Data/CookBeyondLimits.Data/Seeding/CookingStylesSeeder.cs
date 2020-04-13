@@ -17,7 +17,7 @@
                 return;
             }
 
-            var cookingStyleService = serviceProvider.GetRequiredService<ICookingStyleService>();
+            var cookingStyleService = serviceProvider.GetRequiredService<ICookingStylesService>();
 
             var cookingStyleTypes = new string[]
             {

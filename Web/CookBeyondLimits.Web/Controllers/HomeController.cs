@@ -1,16 +1,27 @@
 ﻿namespace CookBeyondLimits.Web.Controllers
 {
     using System.Diagnostics;
-
+    using CookBeyondLimits.Services.Data.Categories;
     using CookBeyondLimits.Web.ViewModels;
-
+    using CookBeyondLimits.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly ICategoriesService categoriesService;
+
+        public HomeController(ICategoriesService categoriesService)
+        {
+            this.categoriesService = categoriesService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var viewModel = new IndexViewModel
+            {
+                Categories = this.categoriesService.GetAll<IndexCategoryViewModel>(),
+            };
+            return this.View(viewModel);
         }
 
         public IActionResult Privacy()

@@ -17,7 +17,7 @@
                 return;
             }
 
-            var healthAndDietService = serviceProvider.GetRequiredService<IHealthAndDietService>();
+            var healthAndDietService = serviceProvider.GetRequiredService<IHealthAndDietsService>();
 
             var healthAndDietTypes = new string[]
             {
