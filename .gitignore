@@ -354,7 +354,6 @@ MigrationBackup/
 
 # Custom ignores
 **/wwwroot/lib/
-/Web/CookBeyondLimits.Web/appsettings.Development.json
-/Web/CookBeyondLimits.Web/appsettings.Production.json
+appsettings.Development.json
 *.min.css
 *.min.js
