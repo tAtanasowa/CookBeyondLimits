@@ -354,6 +354,10 @@ MigrationBackup/
 
 # Custom ignores
 **/wwwroot/lib/
-appsettings.Production.json
+
 *.min.css
 *.min.js
+Web/Model4You.Web/ScaffoldingReadMe.txt
+Web/Model4You.Web/appsettings.Development.json
+Web/Model4You.Web/appsettings.Production.json
+Web/Model4You.Web/appsettings.json
