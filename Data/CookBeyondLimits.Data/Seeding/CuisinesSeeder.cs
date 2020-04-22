@@ -21,6 +21,7 @@
 
             var cuisineTypes = new string[]
             {
+                "Bulgarian",
                 "Chinese",
                 "Indian",
                 "Japanese",

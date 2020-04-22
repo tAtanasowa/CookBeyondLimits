@@ -40,7 +40,7 @@
 
         public Difficulty Difficulty { get; set; }
 
-        public Size Serving { get; set; }
+        public int Serving { get; set; }
 
         public int PreparationTimeInMinutes { get; set; }
 
@@ -50,11 +50,11 @@
 
         public virtual Category Category { get; set; }
 
-        public int CuisineId { get; set; }
+        public int? CuisineId { get; set; }
 
         public virtual Cuisine Cuisine { get; set; }
 
-        public int NutritionalFactId { get; set; }
+        public int? NutritionalFactId { get; set; }
 
         public virtual NutritionalFact NutritionalFact { get; set; }
 

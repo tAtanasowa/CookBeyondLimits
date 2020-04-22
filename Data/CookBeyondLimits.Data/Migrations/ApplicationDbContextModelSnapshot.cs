@@ -467,7 +467,7 @@ namespace CookBeyondLimits.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CuisineId")
+                    b.Property<int?>("CuisineId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("DeletedOn")
@@ -491,7 +491,7 @@ namespace CookBeyondLimits.Data.Migrations
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
-                    b.Property<int>("NutritionalFactId")
+                    b.Property<int?>("NutritionalFactId")
                         .HasColumnType("int");
 
                     b.Property<string>("Photo")
@@ -902,9 +902,7 @@ namespace CookBeyondLimits.Data.Migrations
 
                     b.HasOne("CookBeyondLimits.Data.Models.Cuisine", "Cuisine")
                         .WithMany("Recipes")
-                        .HasForeignKey("CuisineId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("CuisineId");
 
                     b.HasOne("CookBeyondLimits.Data.Models.ApplicationUser", "User")
                         .WithMany("Recipes")
