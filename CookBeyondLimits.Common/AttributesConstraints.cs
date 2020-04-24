@@ -31,8 +31,8 @@
         public const int RecipeTitleMinLength = 2;
         public const int RecipeTitleMaxLength = 100;
 
-        //public const int RecipeSummaryMinLength = 10;
-        //public const int RecipeSummaryMaxLength = 1000;
+        public const int RecipeDescriptionMinLength = 10;
+        public const int RecipeDescriptionMaxLength = 1000;
 
         //public const int RecipeTimeMinValue = 1;
         //public const int RecipeTimeMaxValue = 300;
@@ -50,9 +50,9 @@
         //public const double BrowseNutritionalValueMinValue = 0.1;
         //public const double BrowseNutritionalValueMaxValue = 10000;
 
-        //// Category
-        //public const int CategoryTitleMinLength = 3;
-        //public const int CategoryTitleMaxLength = 20;
+        // Category
+        public const int CategoryNameMinLength = 3;
+        public const int CategoryNameMaxLength = 50;
 
         //// NutritionalValue
         //public const double NutritionalValueMinValue = 0.1;

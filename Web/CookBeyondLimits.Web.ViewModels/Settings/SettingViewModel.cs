@@ -1,9 +1,8 @@
 ﻿namespace CookBeyondLimits.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using CookBeyondLimits.Data.Models;
     using CookBeyondLimits.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {
