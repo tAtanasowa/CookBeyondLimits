@@ -54,6 +54,10 @@
         public const int CategoryNameMinLength = 3;
         public const int CategoryNameMaxLength = 50;
 
+        //Ingredient
+        public const int IngredientDescriptionMinLength = 2;
+        public const int IngredientDescriptionMaxLength = 200;
+
         //// NutritionalValue
         //public const double NutritionalValueMinValue = 0.1;
         //public const double NutritionalValueMaxValue = 10000;

@@ -46,8 +46,6 @@
 
         public DbSet<RecipeHealthAndDiet> RecipeHealthAndDiets { get; set; }
 
-        public DbSet<RecipeIngredient> RecipeIngredients { get; set; }
-
         public DbSet<RecipeTag> RecipeTags { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
@@ -177,20 +175,6 @@
                 .WithMany(hd => hd.Recipes)
                 .HasForeignKey(rhd => rhd.HealthAndDietId);
 
-            // Many-to-many unidirectional relationship between Recipes and Ingredients
-            builder.Entity<RecipeIngredient>()
-                .HasKey(ri => new { ri.RecipeId, ri.IngredientId });
-
-            builder.Entity<RecipeIngredient>()
-                .HasOne(ri => ri.Recipe)
-                .WithMany(r => r.Ingredients)
-                .HasForeignKey(ri => ri.RecipeId);
-
-            builder.Entity<RecipeIngredient>()
-                .HasOne(ri => ri.Ingredient)
-                .WithMany(i => i.Recipes)
-                .HasForeignKey(ri => ri.IngredientId);
-
             // Many-to-many unidirectional relationship between Recipes and Tags
             builder.Entity<RecipeTag>()
                 .HasKey(rt => new { rt.RecipeId, rt.TagId });
@@ -246,6 +230,12 @@
                 .HasOne(ufr => ufr.Recipe)
                 .WithMany(r => r.FavoredBy)
                 .HasForeignKey(ufr => ufr.RecipeId);
+
+            // One-to-one relationship between Recipes and Ingredients
+            builder.Entity<Recipe>()
+                .HasOne(r => r.Ingredient)
+                .WithOne(nf => nf.Recipe)
+                .HasForeignKey<Ingredient>(nf => nf.RecipeId);
 
             // One-to-one relationship between Recipes and NutritionalFacts
             builder.Entity<Recipe>()

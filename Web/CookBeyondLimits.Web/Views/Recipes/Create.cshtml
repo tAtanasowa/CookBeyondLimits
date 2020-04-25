@@ -1,0 +1,66 @@
+﻿@using CookBeyondLimits.Web.ViewModels.Recipes
+@model RecipeCreateInputModel
+@{
+    this.ViewData["Title"] = "Add a Recipe";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+
+<br>
+<form method="post" asp-action="Create">
+    <div class="row">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="col-lg-12">
+            <div class="form-group">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="field_wrapper">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <input type="text" name="field_name[]" value="" class="form-control" placeholder="Enter ingredient" />
+                        </div>
+                        <a href="javascript:void(0);" class="btn btn-success add_button" title="Add field"><i class="fas fa-plus-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <input type="submit" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var maxField = 10; //Input fields increment limitation
+            var addButton = $('.add_button'); //Add button selector
+            var wrapper = $('.field_wrapper'); //Input field wrapper
+            var fieldHTML = '<div><div class="form-group"><div class="row"><div class="col-lg-4"><input type="text" name="field_name[]" value="" class="form-control" placeholder="Enter ingredient" /></div><a href="javascript:void(0);" class="btn btn-danger remove_button"><i class="fas fa-minus-circle"></i></a></div></div></div>'; //New input field html
+            var x = 1; //Initial field counter is 1
+
+            //Once add button is clicked
+            $(addButton).click(function () {
+                //Check maximum number of input fields
+                if (x < maxField) {
+                    x++; //Increment field counter
+                    $(wrapper).append(fieldHTML); //Add field html
+                }
+            });
+
+            //Once remove button is clicked
+            $(wrapper).on('click', '.remove_button', function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove(); //Remove field html
+                x--; //Decrement field counter
+            });
+        });
+    </script>
+}

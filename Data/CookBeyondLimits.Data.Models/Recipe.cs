@@ -13,7 +13,6 @@
         {
             this.CreatedOn = DateTime.UtcNow;
             this.IsDeleted = false;
-            this.Ingredients = new HashSet<RecipeIngredient>();
             this.Allergens = new HashSet<RecipeAllergen>();
             this.Steps = new HashSet<Step>();
             this.Tags = new HashSet<RecipeTag>();
@@ -54,6 +53,10 @@
 
         public virtual Cuisine Cuisine { get; set; }
 
+        public int? IngredientId { get; set; }
+
+        public virtual Ingredient Ingredient { get; set; }
+
         public int? NutritionalFactId { get; set; }
 
         public virtual NutritionalFact NutritionalFact { get; set; }
@@ -62,8 +65,6 @@
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }
-
-        public virtual ICollection<RecipeIngredient> Ingredients { get; set; }
 
         public virtual ICollection<RecipeAllergen> Allergens { get; set; }
 

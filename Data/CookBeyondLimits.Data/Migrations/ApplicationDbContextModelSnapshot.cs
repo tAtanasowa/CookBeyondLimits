@@ -354,34 +354,32 @@ namespace CookBeyondLimits.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Amount")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(200)")
+                        .HasMaxLength(200);
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("Measure")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
+
+                    b.HasIndex("RecipeId")
+                        .IsUnique();
 
                     b.ToTable("Ingredients");
                 });
@@ -393,10 +391,10 @@ namespace CookBeyondLimits.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Calories")
+                    b.Property<double?>("Calories")
                         .HasColumnType("float");
 
-                    b.Property<double>("Cholesterol")
+                    b.Property<double?>("Cholesterol")
                         .HasColumnType("float");
 
                     b.Property<DateTime>("CreatedOn")
@@ -405,7 +403,7 @@ namespace CookBeyondLimits.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("DietaryFiber")
+                    b.Property<double?>("DietaryFiber")
                         .HasColumnType("float");
 
                     b.Property<bool>("IsDeleted")
@@ -414,31 +412,31 @@ namespace CookBeyondLimits.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Potassium")
+                    b.Property<double?>("Potassium")
                         .HasColumnType("float");
 
-                    b.Property<double>("Protein")
+                    b.Property<double?>("Protein")
                         .HasColumnType("float");
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Salt")
+                    b.Property<double?>("Salt")
                         .HasColumnType("float");
 
-                    b.Property<double>("SaturatedFat")
+                    b.Property<double?>("SaturatedFat")
                         .HasColumnType("float");
 
-                    b.Property<double>("Sodium")
+                    b.Property<double?>("Sodium")
                         .HasColumnType("float");
 
-                    b.Property<double>("Sugars")
+                    b.Property<double?>("Sugars")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalCarbohydrate")
+                    b.Property<double?>("TotalCarbohydrate")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalFat")
+                    b.Property<double?>("TotalFat")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -479,6 +477,9 @@ namespace CookBeyondLimits.Data.Migrations
                         .HasMaxLength(1000);
 
                     b.Property<int>("Difficulty")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IngredientId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -569,21 +570,6 @@ namespace CookBeyondLimits.Data.Migrations
                     b.HasIndex("HealthAndDietId");
 
                     b.ToTable("RecipeHealthAndDiets");
-                });
-
-            modelBuilder.Entity("CookBeyondLimits.Data.Models.RecipeIngredient", b =>
-                {
-                    b.Property<int>("RecipeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RecipeId", "IngredientId");
-
-                    b.HasIndex("IngredientId");
-
-                    b.ToTable("RecipeIngredients");
                 });
 
             modelBuilder.Entity("CookBeyondLimits.Data.Models.RecipeTag", b =>
@@ -883,6 +869,15 @@ namespace CookBeyondLimits.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("CookBeyondLimits.Data.Models.Ingredient", b =>
+                {
+                    b.HasOne("CookBeyondLimits.Data.Models.Recipe", "Recipe")
+                        .WithOne("Ingredient")
+                        .HasForeignKey("CookBeyondLimits.Data.Models.Ingredient", "RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CookBeyondLimits.Data.Models.NutritionalFact", b =>
                 {
                     b.HasOne("CookBeyondLimits.Data.Models.Recipe", "Recipe")
@@ -951,21 +946,6 @@ namespace CookBeyondLimits.Data.Migrations
 
                     b.HasOne("CookBeyondLimits.Data.Models.Recipe", "Recipe")
                         .WithMany("HealthAndDiets")
-                        .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CookBeyondLimits.Data.Models.RecipeIngredient", b =>
-                {
-                    b.HasOne("CookBeyondLimits.Data.Models.Ingredient", "Ingredient")
-                        .WithMany("Recipes")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CookBeyondLimits.Data.Models.Recipe", "Recipe")
-                        .WithMany("Ingredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();

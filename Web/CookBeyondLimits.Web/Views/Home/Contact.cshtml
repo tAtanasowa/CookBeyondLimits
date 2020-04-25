@@ -1,0 +1,60 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using CookBeyondLimits.Web.ViewModels.Home
+@model ContactFormViewModel
+@{
+    this.ViewData["Title"] = "Send us a message";
+}
+<h1>@this.ViewData["Title"]</h1>
+
+<br>
+<div class="contact-form-area mb-70">
+    <form method="post">
+        <div class="row">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control" value="@this.User.Identity.Name" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title" class="form-control" />
+                    <span asp-validation-for="Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-group">
+                    <label asp-for="Content"></label>
+                    <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12">
+                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
+                <button class="btn bueno-btn mt-30" type="submit">Send</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="https://www.google.com/recaptcha/api.js?render=@this.Configuration["GoogleReCaptcha:SiteKey"]"></script>
+    <script>
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@this.Configuration["GoogleReCaptcha:SiteKey"]', { action: 'contact_form' }).then(function (token) {
+                document.getElementById("RecaptchaValue").value = token;
+            });
+        });
+    </script>
+}

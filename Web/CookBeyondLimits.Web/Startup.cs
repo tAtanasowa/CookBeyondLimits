@@ -12,6 +12,7 @@
     using CookBeyondLimits.Services.Data;
     using CookBeyondLimits.Services.Data.Allergens;
     using CookBeyondLimits.Services.Data.Categories;
+    using CookBeyondLimits.Services.Data.ContactForm;
     using CookBeyondLimits.Services.Data.CookingStyles;
     using CookBeyondLimits.Services.Data.Cuisines;
     using CookBeyondLimits.Services.Data.HealthAndDiets;
@@ -86,6 +87,7 @@
             services.AddTransient<ICookingStylesService, CookingStylesService>();
             services.AddTransient<ICuisinesService, CuisinesService>();
             services.AddTransient<IHealthAndDietsService, HealthAndDietsService>();
+            services.AddTransient<IContactFormService, ContactFormService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
